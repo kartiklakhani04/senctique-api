@@ -1,0 +1,49 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: SpringbootProject
+  datasource:
+    url: jdbc:mysql://localhost:3306/uwlweb
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kartiklakhani05@gmail.com
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQLDialect
+      show-sql: true
+
+logging:
+  level:
+    root: info
+    org.springframework: debug
+    org.hibernate.SQL: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://185.181.11.152:3306/uwlweb
+    username: root
+    password:
+
+

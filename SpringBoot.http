@@ -1,0 +1,42 @@
+###
+GET http://localhost:8080/product/findAll
+
+###
+
+GET http://localhost:8080/user/loggedInUser
+
+###
+
+POST http://localhost:8080/favorite/1/1
+
+###
+
+DELETE http://localhost:8080/favorite/1/1
+
+###
+
+POST http://localhost:8080/cart/42?5
+
+###
+
+POST http://localhost:8080/cart/remove/56
+
+###
+GET http://localhost:8080/cart/get
+
+###
+
+PUT http://localhost:8080/cart/quantity/42?quantity=4
+
+###
+
+GET http://localhost:8080/product/random
+
+###
+
+GET http://localhost:8080/order/38
+
+###
+
+
+
