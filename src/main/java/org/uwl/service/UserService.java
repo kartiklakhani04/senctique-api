@@ -1,12 +1,12 @@
 package org.uwl.service;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.uwl.entity.User;
 import org.uwl.repository.UserRepository;
-import java.util.Optional;
 
 @Service
 public class UserService {

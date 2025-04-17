@@ -58,7 +58,7 @@ public class Product {
   @Column(nullable = false)
   private String fragranceType;
 
-  @Column(nullable = false)
+  @Column(name = "usage_info", nullable = false)
   private String usage;
 
   @Column(nullable = false)
@@ -70,6 +70,9 @@ public class Product {
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private Category category;
+
+  @Column(nullable = false)
+  private Long stock;
 
   public enum Category {
     Men,

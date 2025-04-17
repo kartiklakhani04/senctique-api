@@ -22,13 +22,13 @@ spring:
           auth: true
           starttls:
             enable: true
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
       hibernate:
-        ddl-auto: update
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.MySQLDialect
-      show-sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
 
 logging:
   level:

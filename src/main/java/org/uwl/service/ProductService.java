@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.uwl.entity.OrderItem;
 import org.uwl.entity.Product;
 import org.uwl.repository.ProductRepository;
 
@@ -48,5 +49,24 @@ public class ProductService {
       List<String> sillage) {
     return productRepository.filterProducts(
         minPrice, maxPrice, concentration, size, fragranceType, sillage);
+  }
+
+  @Transactional
+  public void stockDeduction(List<OrderItem> orderItems) {
+    orderItems.forEach(
+        orderItem -> {
+          Long productId = orderItem.getProduct().getId();
+          Long quantity = orderItem.getQuantity();
+          Product product = productRepository.findById(productId).orElse(null);
+          if (product != null) {
+            long currentStock = product.getStock();
+            if (currentStock >= quantity) {
+              product.setStock(currentStock - quantity);
+              productRepository.save(product);
+            } else {
+              throw new RuntimeException("Insufficient stock for product: " + productId);
+            }
+          }
+        });
   }
 }

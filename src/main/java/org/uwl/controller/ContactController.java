@@ -14,7 +14,6 @@ public class ContactController {
 
   @PostMapping("/save")
   public ResponseEntity<Contact> save(@RequestBody Contact contact) {
-    contactService.save(contact);
-    return ResponseEntity.ok(contact);
+    return ResponseEntity.ok(contactService.save(contact));
   }
 }

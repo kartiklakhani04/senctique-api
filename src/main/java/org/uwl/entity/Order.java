@@ -18,9 +18,21 @@ public class Order {
   @Column(nullable = false)
   private Double total = 0D;
 
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private Status status;
+
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonManagedReference
   private List<OrderItem> orderItems = new ArrayList<>();
 
   @ManyToOne private User user;
+
+  public enum Status {
+    Open,
+    InProcess,
+    Shipped,
+    Delivered,
+    Cancelled
+  }
 }

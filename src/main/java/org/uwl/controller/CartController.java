@@ -22,16 +22,20 @@ public class CartController {
   }
 
   @PostMapping("/{productId}")
-  public ResponseEntity<Void> add(@PathVariable Long productId) {
+  public ResponseEntity<String> add(@PathVariable Long productId) {
     Product product = productService.findById(productId);
-    OrderItem newItem = new OrderItem();
-    newItem.setPrice(product.getPrice());
-    newItem.setQuantity(1L);
-    newItem.setTotal(product.getPrice());
-    newItem.setProduct(product);
-    shoppingBag.getOrder().getOrderItems().add(newItem);
-    updateOrderTotal();
-    return ResponseEntity.noContent().build();
+    if (product.getStock() >= 1) {
+      OrderItem newItem = new OrderItem();
+      newItem.setPrice(product.getPrice());
+      newItem.setQuantity(1L);
+      newItem.setTotal(product.getPrice());
+      newItem.setProduct(product);
+      shoppingBag.getOrder().getOrderItems().add(newItem);
+      updateOrderTotal();
+      return ResponseEntity.noContent().build();
+    } else {
+      return ResponseEntity.status(404).body("Product out of stock");
+    }
   }
 
   @DeleteMapping("/{productId}")

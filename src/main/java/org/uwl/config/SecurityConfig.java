@@ -57,7 +57,8 @@ public class SecurityConfig {
                         "/contact/**",
                         "/cart/**",
                         "/address/**",
-                        "/order/**")
+                        "/order/**",
+                        "/subscription/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
