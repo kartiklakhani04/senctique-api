@@ -7,6 +7,10 @@ import lombok.Data;
 @Table(name = "users")
 @Data
 public class User {
+  public enum UserRole {
+    USER,
+    ADMIN
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +30,8 @@ public class User {
 
   @Column(nullable = false)
   private String password;
+
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private UserRole role;
 }

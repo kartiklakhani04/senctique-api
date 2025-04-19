@@ -29,10 +29,11 @@ import org.springframework.web.filter.CorsFilter;
 import org.uwl.entity.User;
 import org.uwl.filter.AuthenticationFilter;
 
+import static org.uwl.entity.User.UserRole.USER;
+
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
-@EnableAspectJAutoProxy
+@EnableMethodSecurity(securedEnabled = true)
 @RequiredArgsConstructor
 @Slf4j
 public class SecurityConfig {
@@ -57,7 +58,7 @@ public class SecurityConfig {
                         "/contact/**",
                         "/cart/**",
                         "/address/**",
-                        "/order/**",
+                        "/order/status/*",
                         "/subscription/**")
                     .permitAll()
                     .anyRequest()
@@ -97,9 +98,10 @@ public class SecurityConfig {
             if (Objects.isNull(user) || !passwordEncoder.matches(password, user.getPassword())) {
               throw new BadCredentialsException("BadCredentialsException");
             }
+            String role = USER.equals(user.getRole()) ? "USER_ROLE" : "ADMIN_ROLE";
             final UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                    user, null, List.of(new SimpleGrantedAuthority("USER_ROLL")));
+                    user, null, List.of(new SimpleGrantedAuthority(role)));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             return authenticationToken;
           }

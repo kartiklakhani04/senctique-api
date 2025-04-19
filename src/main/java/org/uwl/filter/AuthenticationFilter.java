@@ -18,6 +18,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.uwl.entity.User;
 import org.uwl.service.UserService;
 
+import static org.uwl.entity.User.UserRole.USER;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -37,9 +39,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     if (email != null) {
       final User userDB = userService.getUserByEmail(email);
       if (Objects.nonNull(userDB)) {
+        String role = USER.equals(userDB.getRole()) ? "USER_ROLE" : "ADMIN_ROLE";
         final UsernamePasswordAuthenticationToken authentication =
             new UsernamePasswordAuthenticationToken(
-                userDB, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
+                userDB, null, List.of(new SimpleGrantedAuthority(role)));
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }

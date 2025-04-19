@@ -3,6 +3,7 @@ package org.uwl.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.uwl.bean.ShoppingBag;
 import org.uwl.email.OrderEmail;
@@ -18,6 +19,7 @@ public class OrderController {
   @Autowired private OrderEmail orderEmail;
 
   @GetMapping("/{userId}")
+  @Secured({"USER_ROLE", "ADMIN_ROLE"})
   public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
     List<Order> orders = orderService.getOrdersByUserId(userId);
     if (orders.isEmpty()) {
@@ -33,6 +35,7 @@ public class OrderController {
   }
 
   @PostMapping("/save")
+  @Secured({"USER_ROLE"})
   public ResponseEntity<Long> save() {
     Order order = shoppingBag.getOrder();
     Order savedOrder = orderService.save(order);

@@ -8,6 +8,19 @@ import lombok.Data;
 @Data
 public class Product {
 
+  public enum Category {
+    Men,
+    Women,
+    Unisex,
+    Luxury
+  }
+
+  public enum Gender {
+    Men,
+    Women,
+    Unisex
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -21,7 +34,7 @@ public class Product {
   @Column(nullable = false)
   private Double price;
 
-  @Column(nullable = false)
+  @Column(nullable = false, length = 500)
   private String imageUrl;
 
   @Column(nullable = false)
@@ -73,17 +86,4 @@ public class Product {
 
   @Column(nullable = false)
   private Long stock;
-
-  public enum Category {
-    Men,
-    Women,
-    Unisex,
-    Luxury
-  }
-
-  public enum Gender {
-    Men,
-    Women,
-    Unisex
-  }
 }
